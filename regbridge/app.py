@@ -10,6 +10,9 @@ import io
 import datetime
 import os
 
+# Chemin absolu vers platform_data, quel que soit le répertoire de lancement
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
 # ─────────────────────────────────────────────
 # CONFIGURATION DE PAGE
 # ─────────────────────────────────────────────
@@ -45,8 +48,17 @@ st.markdown("""
     section[data-testid="stSidebar"] {
         background: linear-gradient(180deg, var(--navy) 0%, #2d4a7a 100%);
     }
-    section[data-testid="stSidebar"] * { color: var(--white) !important; }
-    section[data-testid="stSidebar"] .stSelectbox label,
+    /* Texte blanc uniquement dans la sidebar — ne pas toucher au contenu principal */
+    section[data-testid="stSidebar"] p,
+    section[data-testid="stSidebar"] span,
+    section[data-testid="stSidebar"] label,
+    section[data-testid="stSidebar"] div,
+    section[data-testid="stSidebar"] .stRadio label,
+    section[data-testid="stSidebar"] .stRadio span,
+    section[data-testid="stSidebar"] .stMarkdown,
+    section[data-testid="stSidebar"] .stMarkdown p,
+    section[data-testid="stSidebar"] .stMarkdown b,
+    section[data-testid="stSidebar"] .stMarkdown small { color: var(--white) !important; }
     section[data-testid="stSidebar"] h1,
     section[data-testid="stSidebar"] h2,
     section[data-testid="stSidebar"] h3 { color: #a8c4e8 !important; }
@@ -209,7 +221,7 @@ st.markdown("""
 # ─────────────────────────────────────────────
 # CHARGEMENT DES DONNÉES
 # ─────────────────────────────────────────────
-DATA_DIR = "platform_data"
+DATA_DIR = os.path.join(BASE_DIR, "platform_data")
 
 @st.cache_data(ttl=3600)
 def load_csv(filename):
