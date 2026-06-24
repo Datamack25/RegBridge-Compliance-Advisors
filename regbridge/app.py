@@ -43,6 +43,41 @@ st.markdown("""
 
     /* ── Fond global ── */
     .stApp { background-color: #f0f4f8; }
+
+    /* ── Forcer texte sombre dans le contenu principal ── */
+    /* Cible tous les éléments texte natifs de Streamlit hors sidebar */
+    .main h1, .main h2, .main h3, .main h4, .main h5, .main h6 {
+        color: #1a365d !important;
+    }
+    .main p, .main span, .main label, .main div {
+        color: #2d3748;
+    }
+    /* Subheader et texte Streamlit natif */
+    [data-testid="stMarkdownContainer"] h1,
+    [data-testid="stMarkdownContainer"] h2,
+    [data-testid="stMarkdownContainer"] h3,
+    [data-testid="stMarkdownContainer"] p,
+    [data-testid="stMarkdownContainer"] li,
+    [data-testid="stMarkdownContainer"] td,
+    [data-testid="stMarkdownContainer"] th,
+    [data-testid="stMarkdownContainer"] span { color: #2d3748 !important; }
+    /* Titres natifs st.subheader / st.title */
+    [data-testid="stHeadingWithActionElements"] h1,
+    [data-testid="stHeadingWithActionElements"] h2,
+    [data-testid="stHeadingWithActionElements"] h3 { color: #1a365d !important; }
+    /* Labels selectbox, text_input hors sidebar */
+    .main .stSelectbox label,
+    .main .stTextInput label,
+    .main .stTextArea label,
+    .main .stDateInput label,
+    .main .stFileUploader label,
+    .main .stCheckbox label,
+    .main .stMultiSelect label { color: #2d3748 !important; }
+    /* Texte dans les expanders */
+    .streamlit-expanderHeader { color: #1a365d !important; font-weight: 600; }
+    /* Texte dans les tabs */
+    .stTabs [data-baseweb="tab"] span { color: #718096 !important; }
+    .stTabs [aria-selected="true"] span { color: #1a365d !important; }
     
     /* ── Sidebar ── */
     section[data-testid="stSidebar"] {
