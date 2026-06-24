@@ -28,227 +28,339 @@ st.set_page_config(
 # ─────────────────────────────────────────────
 st.markdown("""
 <style>
-    /* ── Variables de couleur ── */
-    :root {
-        --navy:   #1a365d;
-        --royal:  #2b6cb0;
-        --slate:  #718096;
-        --light:  #e8f0fe;
-        --white:  #ffffff;
-        --red:    #c53030;
-        --orange: #c05621;
-        --green:  #276749;
-        --yellow: #b7791f;
-    }
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600&display=swap');
 
-    /* ── Fond global ── */
-    .stApp { background-color: #f0f4f8; }
+/* ═══════════════════════════════════════════
+   PALETTE — Cabinet de Conseil Premium
+   Blanc pur · Navy institutionnel · Accents or
+═══════════════════════════════════════════ */
+:root {
+    --navy:    #1c2b4a;
+    --navy2:   #243656;
+    --gold:    #b8975a;
+    --slate:   #5a6a7a;
+    --light:   #f7f8fa;
+    --border:  #e4e8ed;
+    --white:   #ffffff;
+    --red:     #b91c1c;
+    --orange:  #c2410c;
+    --green:   #15803d;
+    --yellow:  #a16207;
+    --text:    #1c2b4a;
+    --subtext: #4a5568;
+}
 
-    /* ── Forcer texte sombre dans le contenu principal ── */
-    /* Cible tous les éléments texte natifs de Streamlit hors sidebar */
-    .main h1, .main h2, .main h3, .main h4, .main h5, .main h6 {
-        color: #1a365d !important;
-    }
-    .main p, .main span, .main label, .main div {
-        color: #2d3748;
-    }
-    /* Subheader et texte Streamlit natif */
-    [data-testid="stMarkdownContainer"] h1,
-    [data-testid="stMarkdownContainer"] h2,
-    [data-testid="stMarkdownContainer"] h3,
-    [data-testid="stMarkdownContainer"] p,
-    [data-testid="stMarkdownContainer"] li,
-    [data-testid="stMarkdownContainer"] td,
-    [data-testid="stMarkdownContainer"] th,
-    [data-testid="stMarkdownContainer"] span { color: #2d3748 !important; }
-    /* Titres natifs st.subheader / st.title */
-    [data-testid="stHeadingWithActionElements"] h1,
-    [data-testid="stHeadingWithActionElements"] h2,
-    [data-testid="stHeadingWithActionElements"] h3 { color: #1a365d !important; }
-    /* Labels selectbox, text_input hors sidebar */
-    .main .stSelectbox label,
-    .main .stTextInput label,
-    .main .stTextArea label,
-    .main .stDateInput label,
-    .main .stFileUploader label,
-    .main .stCheckbox label,
-    .main .stMultiSelect label { color: #2d3748 !important; }
-    /* Texte dans les expanders */
-    .streamlit-expanderHeader { color: #1a365d !important; font-weight: 600; }
-    /* Texte dans les tabs */
-    .stTabs [data-baseweb="tab"] span { color: #718096 !important; }
-    .stTabs [aria-selected="true"] span { color: #1a365d !important; }
-    
-    /* ── Sidebar ── */
-    section[data-testid="stSidebar"] {
-        background: linear-gradient(180deg, var(--navy) 0%, #2d4a7a 100%);
-    }
-    /* Texte blanc uniquement dans la sidebar — ne pas toucher au contenu principal */
-    section[data-testid="stSidebar"] p,
-    section[data-testid="stSidebar"] span,
-    section[data-testid="stSidebar"] label,
-    section[data-testid="stSidebar"] div,
-    section[data-testid="stSidebar"] .stRadio label,
-    section[data-testid="stSidebar"] .stRadio span,
-    section[data-testid="stSidebar"] .stMarkdown,
-    section[data-testid="stSidebar"] .stMarkdown p,
-    section[data-testid="stSidebar"] .stMarkdown b,
-    section[data-testid="stSidebar"] .stMarkdown small { color: var(--white) !important; }
-    section[data-testid="stSidebar"] h1,
-    section[data-testid="stSidebar"] h2,
-    section[data-testid="stSidebar"] h3 { color: #a8c4e8 !important; }
+/* ── Reset fond : blanc pur partout ── */
+.stApp,
+.stApp > div,
+[data-testid="stAppViewContainer"],
+[data-testid="stAppViewBlockContainer"],
+.main,
+.main > div,
+section.main { background-color: #f7f8fa !important; }
 
-    /* ── En-tête bannière ── */
-    .rb-header {
-        background: linear-gradient(135deg, var(--navy) 0%, var(--royal) 100%);
-        padding: 1.5rem 2rem;
-        border-radius: 12px;
-        margin-bottom: 1.5rem;
-        box-shadow: 0 4px 20px rgba(26,54,93,0.25);
-    }
-    .rb-header h1 { color: var(--white); font-size: 1.9rem; margin: 0; font-weight: 700; letter-spacing: -0.5px; }
-    .rb-header p  { color: #a8c4e8; margin: 0.3rem 0 0; font-size: 0.95rem; }
-    .rb-logo-tag  { font-size: 0.7rem; color: #63b3ed; text-transform: uppercase; letter-spacing: 2px; font-weight: 600; }
+/* ── TOUT le texte en sombre par défaut ── */
+* { color: var(--text); box-sizing: border-box; }
+p, span, div, li, td, th, label,
+[data-testid="stMarkdownContainer"] *,
+[data-testid="stHeadingWithActionElements"] *,
+.stMarkdown * { color: var(--text) !important; }
 
-    /* ── Boîtes de métriques ── */
-    .metric-box {
-        background: var(--white);
-        border-radius: 10px;
-        padding: 1.1rem 1.2rem;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.07);
-        border-left: 4px solid var(--royal);
-        margin-bottom: 0.8rem;
-    }
-    .metric-box .label { font-size: 0.72rem; color: var(--slate); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-bottom: 0.3rem; }
-    .metric-box .value { font-size: 1.25rem; font-weight: 700; color: var(--navy); }
-    .metric-box .sub   { font-size: 0.78rem; color: var(--slate); margin-top: 0.2rem; }
+/* Titres natifs Streamlit */
+h1, h2, h3, h4, h5, h6 { color: var(--navy) !important; font-family: 'Playfair Display', Georgia, serif !important; }
 
-    /* ── Badges de risque ── */
-    .badge {
-        display: inline-block;
-        padding: 0.25rem 0.75rem;
-        border-radius: 20px;
-        font-size: 0.78rem;
-        font-weight: 700;
-        letter-spacing: 0.5px;
-        text-transform: uppercase;
-    }
-    .badge-critique { background: #fed7d7; color: var(--red); border: 1px solid #feb2b2; }
-    .badge-eleve    { background: #feebc8; color: var(--orange); border: 1px solid #fbd38d; }
-    .badge-moyen    { background: #fefcbf; color: var(--yellow); border: 1px solid #f6e05e; }
-    .badge-faible   { background: #c6f6d5; color: var(--green); border: 1px solid #9ae6b4; }
-    .badge-noir     { background: #1a202c; color: var(--white); }
-    .badge-gris     { background: #e2e8f0; color: #4a5568; }
-    .badge-conforme { background: #c6f6d5; color: var(--green); }
+/* Labels widgets */
+.stSelectbox label, .stTextInput label, .stTextArea label,
+.stDateInput label, .stFileUploader label,
+.stCheckbox label, .stMultiSelect label,
+.stRadio label { color: var(--navy) !important; font-weight: 500 !important; font-size: 0.82rem !important; letter-spacing: 0.3px; }
 
-    /* ── Alerte PEP/Sanction ── */
-    .alert-box {
-        background: #fff5f5;
-        border: 2px solid var(--red);
-        border-radius: 10px;
-        padding: 1.2rem 1.5rem;
-        margin: 0.8rem 0;
-    }
-    .alert-box .alert-title { color: var(--red); font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
-    .alert-clean {
-        background: #f0fff4;
-        border: 2px solid var(--green);
-        border-radius: 10px;
-        padding: 1rem 1.5rem;
-        color: var(--green);
-        font-weight: 600;
-    }
+/* Inputs */
+.stTextInput input, .stTextArea textarea,
+.stSelectbox [data-baseweb="select"] { background: white !important; border: 1px solid var(--border) !important; color: var(--text) !important; border-radius: 4px !important; }
 
-    /* ── Section cards ── */
-    .section-card {
-        background: var(--white);
-        border-radius: 12px;
-        padding: 1.5rem;
-        box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-        margin-bottom: 1rem;
-    }
-    .section-card h3 { color: var(--navy); font-size: 1rem; font-weight: 700; margin-bottom: 0.8rem; }
+/* ── SIDEBAR — fond navy, texte blanc ── */
+section[data-testid="stSidebar"] {
+    background-color: var(--navy) !important;
+    border-right: 1px solid var(--navy2);
+}
+section[data-testid="stSidebar"] *,
+section[data-testid="stSidebar"] p,
+section[data-testid="stSidebar"] span,
+section[data-testid="stSidebar"] div,
+section[data-testid="stSidebar"] label,
+section[data-testid="stSidebar"] h1,
+section[data-testid="stSidebar"] h2,
+section[data-testid="stSidebar"] h3 { color: #ffffff !important; }
+section[data-testid="stSidebar"] .stRadio label { color: #c8d6e8 !important; font-size: 0.88rem !important; font-weight: 400 !important; }
+/* Radio sélectionné dans sidebar */
+section[data-testid="stSidebar"] [aria-checked="true"] + div label,
+section[data-testid="stSidebar"] [data-testid="stMarkdownContainer"] b { color: var(--gold) !important; }
 
-    /* ── Corridor bar ── */
-    .corridor-bar {
-        background: var(--white);
-        border-radius: 10px;
-        padding: 1rem 1.2rem;
-        border-left: 5px solid var(--royal);
-        margin: 0.5rem 0;
-        box-shadow: 0 1px 6px rgba(0,0,0,0.05);
-    }
+/* ── EN-TÊTE : bande navy sobre + filet or ── */
+.rb-header {
+    background-color: var(--navy);
+    border-bottom: 3px solid var(--gold);
+    padding: 2rem 2.5rem 1.8rem;
+    margin-bottom: 2rem;
+}
+.rb-logo-tag {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.68rem;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-weight: 600;
+    margin-bottom: 0.6rem;
+}
+.rb-header h1 {
+    font-family: 'Playfair Display', Georgia, serif !important;
+    color: #ffffff !important;
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0 0 0.4rem;
+    letter-spacing: -0.5px;
+}
+.rb-header p {
+    font-family: 'Inter', sans-serif;
+    color: #8ba3c0 !important;
+    font-size: 0.88rem;
+    margin: 0;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+}
 
-    /* ── Step audit ── */
-    .step-card {
-        background: var(--white);
-        border-radius: 10px;
-        padding: 1.2rem 1.5rem;
-        margin: 0.6rem 0;
-        border-top: 3px solid var(--royal);
-        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    }
-    .step-num {
-        background: var(--navy);
-        color: var(--white);
-        border-radius: 50%;
-        width: 32px; height: 32px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: 700;
-        font-size: 0.9rem;
-        margin-right: 0.6rem;
-        vertical-align: middle;
-    }
+/* ── PAGE TITLE ZONE (sous header) ── */
+.page-title {
+    border-left: 3px solid var(--gold);
+    padding: 0.3rem 0 0.3rem 1rem;
+    margin-bottom: 1.5rem;
+}
+.page-title h2 {
+    font-family: 'Playfair Display', Georgia, serif !important;
+    color: var(--navy) !important;
+    font-size: 1.4rem !important;
+    margin: 0 !important;
+    font-weight: 600 !important;
+}
+.page-title p {
+    color: var(--slate) !important;
+    font-size: 0.85rem !important;
+    margin: 0.2rem 0 0 !important;
+}
 
-    /* ── Tabs styling ── */
-    .stTabs [data-baseweb="tab"] {
-        background: transparent;
-        color: var(--slate);
-        font-weight: 600;
-        border-radius: 8px 8px 0 0;
-        padding: 0.6rem 1.2rem;
-    }
-    .stTabs [aria-selected="true"] {
-        background: var(--white) !important;
-        color: var(--navy) !important;
-        border-bottom: 3px solid var(--royal) !important;
-    }
+/* ── CARTES CONTENU ── */
+.section-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 1.5rem 1.8rem;
+    margin-bottom: 1rem;
+}
+.section-card h3 {
+    font-family: 'Playfair Display', Georgia, serif !important;
+    color: var(--navy) !important;
+    font-size: 1rem !important;
+    font-weight: 600 !important;
+    margin-bottom: 1rem !important;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+}
+.section-card p, .section-card li { color: var(--subtext) !important; }
 
-    /* ── Boutons ── */
-    .stButton > button {
-        background: var(--royal);
-        color: var(--white);
-        border: none;
-        border-radius: 8px;
-        font-weight: 600;
-        padding: 0.5rem 1.2rem;
-        transition: all 0.2s;
-    }
-    .stButton > button:hover {
-        background: var(--navy);
-        transform: translateY(-1px);
-        box-shadow: 0 4px 12px rgba(26,54,93,0.3);
-    }
+/* ── METRIC BOXES ── */
+.metric-box {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--navy);
+    padding: 1.2rem 1.4rem;
+    margin-bottom: 0.8rem;
+}
+.metric-box .label {
+    font-size: 0.68rem;
+    color: var(--slate) !important;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    font-family: 'Inter', sans-serif;
+}
+.metric-box .value {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--navy) !important;
+    font-family: 'Playfair Display', Georgia, serif;
+}
+.metric-box .sub {
+    font-size: 0.75rem;
+    color: var(--slate) !important;
+    margin-top: 0.3rem;
+    line-height: 1.4;
+}
 
-    /* ── Divider ── */
-    .rb-divider {
-        border: none;
-        border-top: 1px solid #e2e8f0;
-        margin: 1.2rem 0;
-    }
+/* ── BADGES RISQUE ── */
+.badge {
+    display: inline-block;
+    padding: 0.2rem 0.65rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-family: 'Inter', sans-serif;
+    border-radius: 2px;
+}
+.badge-critique { background: #fee2e2; color: #991b1b !important; border: 1px solid #fca5a5; }
+.badge-eleve    { background: #ffedd5; color: #9a3412 !important; border: 1px solid #fdba74; }
+.badge-moyen    { background: #fef9c3; color: #854d0e !important; border: 1px solid #fde047; }
+.badge-faible   { background: #dcfce7; color: #166534 !important; border: 1px solid #86efac; }
+.badge-noir     { background: #1e293b; color: #f1f5f9 !important; }
+.badge-gris     { background: #f1f5f9; color: #475569 !important; border: 1px solid #cbd5e1; }
+.badge-conforme { background: #dcfce7; color: #166534 !important; border: 1px solid #86efac; }
 
-    /* ── Footbar ── */
-    .rb-footer {
-        background: var(--navy);
-        color: #a8c4e8;
-        text-align: center;
-        padding: 0.8rem;
-        border-radius: 10px;
-        font-size: 0.75rem;
-        margin-top: 2rem;
-    }
+/* ── ALERTE PEP / SANCTIONS ── */
+.alert-box {
+    background: #fffbfb;
+    border-left: 4px solid var(--red);
+    border-top: 1px solid #fecaca;
+    border-right: 1px solid #fecaca;
+    border-bottom: 1px solid #fecaca;
+    padding: 1.2rem 1.5rem;
+    margin: 0.8rem 0;
+}
+.alert-box .alert-title { color: var(--red) !important; font-size: 0.95rem; font-weight: 700; margin-bottom: 0.6rem; font-family: 'Inter', sans-serif; }
+.alert-box table td, .alert-box table th { color: var(--subtext) !important; }
+.alert-clean {
+    background: #f0fdf4;
+    border-left: 4px solid var(--green);
+    border: 1px solid #bbf7d0;
+    padding: 1rem 1.5rem;
+    color: var(--green) !important;
+    font-weight: 600;
+    font-size: 0.88rem;
+}
+
+/* ── ÉTAPES AUDIT ── */
+.step-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--navy);
+    padding: 1.3rem 1.6rem;
+    margin: 0.7rem 0;
+}
+.step-num {
+    background: var(--navy);
+    color: white !important;
+    border-radius: 50%;
+    width: 30px; height: 30px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.85rem;
+    margin-right: 0.7rem;
+    vertical-align: middle;
+    flex-shrink: 0;
+}
+
+/* ── BOUTONS ── */
+.stButton > button {
+    background: var(--navy) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 2px !important;
+    font-family: 'Inter', sans-serif !important;
+    font-size: 0.82rem !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.5px !important;
+    padding: 0.55rem 1.4rem !important;
+    transition: background 0.2s !important;
+}
+.stButton > button:hover {
+    background: var(--gold) !important;
+    color: white !important;
+}
+/* Download buttons */
+[data-testid="stDownloadButton"] button {
+    background: white !important;
+    color: var(--navy) !important;
+    border: 1.5px solid var(--navy) !important;
+    border-radius: 2px !important;
+    font-size: 0.82rem !important;
+    font-weight: 600 !important;
+    padding: 0.5rem 1.2rem !important;
+}
+[data-testid="stDownloadButton"] button:hover {
+    background: var(--navy) !important;
+    color: white !important;
+}
+
+/* ── TABS ── */
+.stTabs [data-baseweb="tab-list"] {
+    border-bottom: 2px solid var(--border) !important;
+    background: transparent !important;
+}
+.stTabs [data-baseweb="tab"] {
+    background: transparent !important;
+    color: var(--slate) !important;
+    font-weight: 500;
+    font-size: 0.85rem;
+    padding: 0.6rem 1.2rem;
+    border-radius: 0 !important;
+    border-bottom: 2px solid transparent !important;
+    margin-bottom: -2px;
+}
+.stTabs [aria-selected="true"] {
+    color: var(--navy) !important;
+    border-bottom: 2px solid var(--navy) !important;
+    font-weight: 700 !important;
+}
+.stTabs [data-baseweb="tab"] span { color: inherit !important; }
+
+/* ── EXPANDERS ── */
+[data-testid="stExpander"] {
+    border: 1px solid var(--border) !important;
+    border-radius: 2px !important;
+    background: white !important;
+    margin-bottom: 0.4rem;
+}
+[data-testid="stExpander"] summary {
+    color: var(--navy) !important;
+    font-weight: 600 !important;
+    font-size: 0.88rem !important;
+    padding: 0.8rem 1rem !important;
+}
+
+/* ── DIVIDER ── */
+.rb-divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 1.5rem 0;
+}
+
+/* ── INFO / WARNING / SUCCESS BOXES ── */
+[data-testid="stInfo"] { background: #f0f6ff !important; border-left-color: var(--navy) !important; }
+[data-testid="stInfo"] * { color: var(--navy) !important; }
+[data-testid="stWarning"] { background: #fffbeb !important; }
+[data-testid="stSuccess"] { background: #f0fdf4 !important; }
+
+/* ── TABLES STREAMLIT ── */
+[data-testid="stDataFrame"] { border: 1px solid var(--border) !important; }
+thead th { background: var(--navy) !important; color: white !important; font-size: 0.8rem !important; }
+tbody td { color: var(--subtext) !important; font-size: 0.83rem !important; }
+
+/* ── FOOTER ── */
+.rb-footer {
+    background: var(--navy);
+    padding: 1.5rem 2rem;
+    margin-top: 3rem;
+    border-top: 3px solid var(--gold);
+}
+.rb-footer p { color: #8ba3c0 !important; font-size: 0.78rem !important; text-align: center; margin: 0.2rem 0; }
+.rb-footer b { color: white !important; }
+
+/* ── SUPPRESSION DES ÉLÉMENTS STREAMLIT PARASITES ── */
+#MainMenu, footer, header { visibility: hidden; }
+.block-container { padding-top: 0 !important; padding-bottom: 2rem !important; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -316,15 +428,19 @@ def fake_pdf_bytes(title, content_lines):
 # ─────────────────────────────────────────────
 with st.sidebar:
     st.markdown("""
-    <div style='text-align:center; padding: 1rem 0;'>
-        <div style='font-size:2.5rem;'>⚖️</div>
-        <div style='font-weight:700; font-size:1.1rem; color:#ffffff; margin-top:0.4rem;'>RegBridge</div>
-        <div style='font-size:0.7rem; color:#63b3ed; letter-spacing:2px; text-transform:uppercase;'>Compliance Advisors</div>
+    <div style='padding: 1.5rem 1rem 1rem;'>
+        <div style='display:flex; align-items:center; gap:0.7rem; margin-bottom:1.2rem;'>
+            <span style='font-size:1.6rem;'>⚖️</span>
+            <div>
+                <div style='font-weight:700; font-size:0.95rem; color:#ffffff; letter-spacing:0.3px;'>RegBridge</div>
+                <div style='font-size:0.62rem; color:#b8975a; letter-spacing:2.5px; text-transform:uppercase; font-weight:600;'>Compliance Advisors</div>
+            </div>
+        </div>
+        <div style='height:1px; background:rgba(255,255,255,0.1); margin-bottom:1.5rem;'></div>
+        <div style='font-size:0.65rem; color:#8ba3c0; text-transform:uppercase; letter-spacing:2px; font-weight:600; margin-bottom:0.8rem;'>Navigation</div>
     </div>
-    <hr style='border-color:#2d4a7a; margin:0.8rem 0;'>
     """, unsafe_allow_html=True)
 
-    st.markdown("**Navigation**")
     menu = st.radio(
         "",
         options=[
@@ -337,16 +453,18 @@ with st.sidebar:
         label_visibility="collapsed",
     )
 
-    st.markdown("<hr style='border-color:#2d4a7a; margin:1rem 0;'>", unsafe_allow_html=True)
     st.markdown("""
-    <div style='font-size:0.72rem; color:#718096; line-height:1.6;'>
-        <b style='color:#a8c4e8;'>Sources intégrées :</b><br>
-        GAFI • OFAC SDN • TRACFIN<br>
-        DGT Gel Avoirs • Bâle III<br>
-        OpenSanctions • GIABA<br>
-        <br>
-        <b style='color:#a8c4e8;'>Mise à jour :</b><br>
-        Base réglementaire 2024–2025
+    <div style='height:1px; background:rgba(255,255,255,0.1); margin:1.5rem 0 1rem;'></div>
+    <div style='padding: 0 1rem 1.5rem;'>
+        <div style='font-size:0.65rem; color:#b8975a; text-transform:uppercase; letter-spacing:2px; font-weight:600; margin-bottom:0.8rem;'>Sources intégrées</div>
+        <div style='font-size:0.78rem; color:#8ba3c0; line-height:2;'>
+            GAFI &nbsp;·&nbsp; OFAC SDN<br>
+            TRACFIN &nbsp;·&nbsp; DGT<br>
+            Bâle II / III<br>
+            OpenSanctions &nbsp;·&nbsp; GIABA
+        </div>
+        <div style='height:1px; background:rgba(255,255,255,0.1); margin:1rem 0;'></div>
+        <div style='font-size:0.7rem; color:#8ba3c0;'>Base réglementaire<br><b style='color:#c8d6e8;'>2024 – 2025</b></div>
     </div>
     """, unsafe_allow_html=True)
 
@@ -357,8 +475,8 @@ with st.sidebar:
 st.markdown("""
 <div class="rb-header">
     <div class="rb-logo-tag">Plateforme d'Intelligence Réglementaire</div>
-    <h1>⚖️ RegBridge Compliance Advisors</h1>
-    <p>LCB-FT · GAFI · OFAC · TRACFIN/DGT · Bâle III — Caraïbes & Afrique</p>
+    <h1>RegBridge Compliance Advisors</h1>
+    <p>Conseil stratégique en conformité financière internationale &nbsp;·&nbsp; Caraïbes &amp; Afrique</p>
 </div>
 """, unsafe_allow_html=True)
 
@@ -367,8 +485,12 @@ st.markdown("""
 # ONGLET 1 : VISION ENVIRONNEMENT PAYS
 # ═══════════════════════════════════════════════════════════
 if menu == "🏛️ Vision Environnement Pays":
-    st.subheader("🏛️ Vision Environnement Pays")
-    st.markdown("Sélectionnez une juridiction pour obtenir sa fiche complète de risque réglementaire.")
+    st.markdown("""
+    <div class="page-title">
+        <h2>Vision Environnement Pays</h2>
+        <p>Sélectionnez une juridiction pour obtenir sa fiche complète de risque réglementaire (GAFI · OFAC · De-risking)</p>
+    </div>
+    """, unsafe_allow_html=True)
 
     col_r, col_p = st.columns([1, 2])
     with col_r:
@@ -505,11 +627,12 @@ if menu == "🏛️ Vision Environnement Pays":
 # ONGLET 2 : MOTEUR DE SCREENING
 # ═══════════════════════════════════════════════════════════
 elif menu == "🔍 Moteur de Screening":
-    st.subheader("🔍 Moteur de Screening PEP / Sanctions")
-    st.markdown(
-        "Saisissez un nom pour le croiser instantanément avec la base des personnes "
-        "à haut risque (OFAC SDN, Gel d'avoirs DGT, OpenSanctions, PEP)."
-    )
+    st.markdown("""
+    <div class="page-title">
+        <h2>Moteur de Screening PEP / Sanctions</h2>
+        <p>Criblage instantané contre les listes OFAC SDN · DGT Gel des Avoirs · OpenSanctions · Interpol</p>
+    </div>
+    """, unsafe_allow_html=True)
 
     st.markdown("""
     <div style='background:#ebf8ff; border:1px solid #bee3f8; border-radius:8px; padding:0.8rem 1rem; margin-bottom:1rem; font-size:0.85rem; color:#2c5282;'>
@@ -621,11 +744,12 @@ elif menu == "🔍 Moteur de Screening":
 # ONGLET 3 : DIASPORA & TRANSFERTS
 # ═══════════════════════════════════════════════════════════
 elif menu == "💸 Diaspora & Transferts":
-    st.subheader("💸 Secteur Diaspora & Maisons de Transfert d'Argent (MTA)")
-    st.markdown(
-        "Analyse de risque des corridors de transfert de fonds de la diaspora. "
-        "Mesures compensatoires automatisées et monitoring des flux critiques."
-    )
+    st.markdown("""
+    <div class="page-title">
+        <h2>Diaspora &amp; Maisons de Transfert d'Argent</h2>
+        <p>Cartographie des risques par corridor · Mesures compensatoires · Transaction Monitoring</p>
+    </div>
+    """, unsafe_allow_html=True)
 
     if df_corridors.empty:
         st.error("Données corridors non disponibles.")
@@ -730,7 +854,12 @@ elif menu == "💸 Diaspora & Transferts":
 # ONGLET 4 : DÉMARCHE D'AUDIT & RÉFÉRENTIEL
 # ═══════════════════════════════════════════════════════════
 elif menu == "📋 Démarche d'Audit & Référentiel":
-    st.subheader("📋 Démarche d'Audit & Référentiel Réglementaire")
+    st.markdown("""
+    <div class="page-title">
+        <h2>Démarche d'Audit &amp; Référentiel Réglementaire</h2>
+        <p>Méthodologie en 5 phases · Référentiels GAFI · OFAC · TRACFIN/DGT · Bâle II/III</p>
+    </div>
+    """, unsafe_allow_html=True)
 
     tab1, tab2, tab3, tab4, tab5 = st.tabs([
         "🔵 Démarche Audit", "📘 GAFI (40 Rec.)", "🔴 OFAC Sanctions", "🇫🇷 TRACFIN / DGT", "🏦 Bâle II/III"
@@ -846,7 +975,12 @@ elif menu == "📋 Démarche d'Audit & Référentiel":
 # ONGLET 5 : CABINET — RDV & ÉCHANGES
 # ═══════════════════════════════════════════════════════════
 elif menu == "📅 Cabinet — RDV & Échanges":
-    st.subheader("📅 Cabinet RegBridge — Prise de Rendez-Vous & Échanges")
+    st.markdown("""
+    <div class="page-title">
+        <h2>Cabinet — Prise de Rendez-Vous &amp; Échanges</h2>
+        <p>Réservez une prestation de conseil · Soumettez vos documents en toute confidentialité</p>
+    </div>
+    """, unsafe_allow_html=True)
 
     col_a, col_b = st.columns([3, 2])
 
@@ -984,11 +1118,8 @@ elif menu == "📅 Cabinet — RDV & Échanges":
 # ─────────────────────────────────────────────
 st.markdown("""
 <div class="rb-footer">
-    ⚖️ <b>RegBridge Compliance Advisors</b> — Plateforme d'Intelligence Réglementaire<br>
-    GAFI · OFAC · TRACFIN/DGT · Bâle III · OpenSanctions · GIABA<br>
-    <span style="font-size:0.68rem; color:#4a5568;">
-        Les informations fournies sont à des fins d'information et de conseil professionnel uniquement.
-        Elles ne constituent pas un avis juridique. © 2025 RegBridge Compliance Advisors.
-    </span>
+    <p><b>RegBridge Compliance Advisors</b> &nbsp;—&nbsp; Conseil stratégique en conformité financière internationale</p>
+    <p>GAFI &nbsp;·&nbsp; OFAC &nbsp;·&nbsp; TRACFIN / DGT &nbsp;·&nbsp; Bâle III &nbsp;·&nbsp; OpenSanctions &nbsp;·&nbsp; GIABA</p>
+    <p style='margin-top:0.8rem; font-size:0.7rem; color:#4a6080 !important;'>Les informations fournies sont à titre informatif et professionnel uniquement. Elles ne constituent pas un avis juridique. © 2025 RegBridge Compliance Advisors.</p>
 </div>
 """, unsafe_allow_html=True)
