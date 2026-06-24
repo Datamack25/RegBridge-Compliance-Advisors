@@ -97,38 +97,141 @@ section[data-testid="stSidebar"] .stRadio label { color: #c8d6e8 !important; fon
 section[data-testid="stSidebar"] [aria-checked="true"] + div label,
 section[data-testid="stSidebar"] [data-testid="stMarkdownContainer"] b { color: var(--gold) !important; }
 
-/* ── EN-TÊTE : bande navy sobre + filet or ── */
+/* ── EN-TÊTE : navbar compacte, juste le nom ── */
 .rb-header {
     background-color: var(--navy);
     border-bottom: 3px solid var(--gold);
-    padding: 2rem 2.5rem 1.8rem;
+    padding: 0.9rem 2rem;
+    margin-bottom: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+.rb-header-logo { font-size: 1.2rem; line-height: 1; }
+.rb-header-name {
+    font-family: 'Playfair Display', Georgia, serif;
+    color: #ffffff;
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+}
+.rb-header-pipe {
+    color: rgba(255,255,255,0.2);
+    font-size: 1.2rem;
+    margin: 0 0.3rem;
+}
+.rb-header-sub {
+    font-family: 'Inter', sans-serif;
+    color: #8ba3c0;
+    font-size: 0.72rem;
+    font-weight: 300;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+}
+
+/* ── HERO ZONE (sous navbar) ── */
+.rb-hero {
+    background: #f0f4f9;
+    border-bottom: 1px solid var(--border);
+    padding: 2.5rem 2rem 2rem;
     margin-bottom: 2rem;
 }
-.rb-logo-tag {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.68rem;
+.rb-hero-label {
+    font-size: 0.65rem;
     color: var(--gold);
     text-transform: uppercase;
     letter-spacing: 3px;
-    font-weight: 600;
-    margin-bottom: 0.6rem;
-}
-.rb-header h1 {
-    font-family: 'Playfair Display', Georgia, serif !important;
-    color: #ffffff !important;
-    font-size: 2rem;
     font-weight: 700;
-    margin: 0 0 0.4rem;
-    letter-spacing: -0.5px;
-}
-.rb-header p {
+    margin-bottom: 0.6rem;
     font-family: 'Inter', sans-serif;
-    color: #8ba3c0 !important;
+}
+.rb-hero-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    color: var(--navy);
+    font-size: 1.7rem;
+    font-weight: 700;
+    margin: 0 0 0.5rem;
+    line-height: 1.25;
+}
+.rb-hero-desc {
+    color: var(--slate);
     font-size: 0.88rem;
     margin: 0;
     font-weight: 300;
-    letter-spacing: 0.5px;
+    line-height: 1.6;
 }
+.rb-hero-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1.2rem;
+}
+.rb-hero-tag {
+    background: white;
+    border: 1px solid var(--border);
+    color: var(--navy);
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 0.3rem 0.8rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+/* ── CARTES ICÔNES (style compliance-service) ── */
+.icon-card {
+    background: #f0f4f9;
+    border: 1px solid var(--border);
+    padding: 1.8rem 1.5rem;
+    height: 100%;
+}
+.icon-card .ic-icon {
+    width: 48px; height: 48px;
+    background: var(--navy);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    margin-bottom: 1.1rem;
+}
+.icon-card .ic-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    color: var(--navy);
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.7rem;
+    line-height: 1.3;
+}
+.icon-card .ic-text {
+    color: var(--subtext);
+    font-size: 0.83rem;
+    line-height: 1.65;
+}
+
+/* ── DOMAINES TAGS (section bleue) ── */
+.rb-domains {
+    background: var(--navy);
+    padding: 2.5rem 2rem;
+    text-align: center;
+    margin: 2rem 0;
+}
+.rb-domains h3 {
+    font-family: 'Playfair Display', Georgia, serif;
+    color: white;
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+}
+.rb-domains p { color: #8ba3c0; font-size: 0.85rem; margin-bottom: 1.5rem; }
+.rb-domains-tags { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.6rem; }
+.rb-dtag {
+    border: 1px solid rgba(255,255,255,0.4);
+    color: white;
+    font-size: 0.8rem;
+    padding: 0.4rem 1rem;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+}
+
 
 /* ── PAGE TITLE ZONE (sous header) ── */
 .page-title {
@@ -474,23 +577,140 @@ with st.sidebar:
 # ─────────────────────────────────────────────
 st.markdown("""
 <div class="rb-header">
-    <div class="rb-logo-tag">Plateforme d'Intelligence Réglementaire</div>
-    <h1>RegBridge Compliance Advisors</h1>
-    <p>Conseil stratégique en conformité financière internationale &nbsp;·&nbsp; Caraïbes &amp; Afrique</p>
+    <span class="rb-header-logo">⚖️</span>
+    <span class="rb-header-name">RegBridge Compliance Advisors</span>
+    <span class="rb-header-pipe">|</span>
+    <span class="rb-header-sub">Intelligence Réglementaire &nbsp;·&nbsp; Caraïbes &amp; Afrique</span>
 </div>
 """, unsafe_allow_html=True)
+
+# ── HERO + CARTES selon l'onglet actif ──
+if menu == "🏛️ Vision Environnement Pays":
+    st.markdown("""
+    <div class="rb-hero">
+        <div class="rb-hero-label">Module 1 — Analyse Pays</div>
+        <div class="rb-hero-title">Vision Environnement Pays</div>
+        <div class="rb-hero-desc">
+            Obtenez la fiche de risque réglementaire complète d'une juridiction Caraïbes ou Afrique :<br>
+            statut GAFI, exposition OFAC, indice de de-risking, score de corruption et vulnérabilités clés.
+        </div>
+        <div class="rb-hero-tags">
+            <span class="rb-hero-tag">GAFI</span>
+            <span class="rb-hero-tag">OFAC SDN</span>
+            <span class="rb-hero-tag">De-risking</span>
+            <span class="rb-hero-tag">Corruption TI</span>
+            <span class="rb-hero-tag">Correspondance Bancaire</span>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+elif menu == "🔍 Moteur de Screening":
+    st.markdown("""
+    <div class="rb-hero">
+        <div class="rb-hero-label">Module 2 — Screening</div>
+        <div class="rb-hero-title">Moteur de Criblage PEP / Sanctions</div>
+        <div class="rb-hero-desc">
+            Criblage instantané des personnes physiques et morales contre les listes consolidées mondiales.
+            Détection automatique des PEP, désignations SDN, gels d'avoirs DGT et alertes OpenSanctions.
+        </div>
+        <div class="rb-hero-tags">
+            <span class="rb-hero-tag">OFAC SDN</span>
+            <span class="rb-hero-tag">DGT Gel Avoirs</span>
+            <span class="rb-hero-tag">OpenSanctions</span>
+            <span class="rb-hero-tag">PEP</span>
+            <span class="rb-hero-tag">Kingpin Act</span>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+elif menu == "💸 Diaspora & Transferts":
+    st.markdown("""
+    <div class="rb-hero">
+        <div class="rb-hero-label">Module 3 — MTA</div>
+        <div class="rb-hero-title">Diaspora &amp; Maisons de Transfert d'Argent</div>
+        <div class="rb-hero-desc">
+            Cartographie des risques par corridor de transfert · Mesures compensatoires réglementaires ·
+            Transaction Monitoring et contrôles KYC adaptés aux flux de la diaspora.
+        </div>
+        <div class="rb-hero-tags">
+            <span class="rb-hero-tag">TRACFIN</span>
+            <span class="rb-hero-tag">FinCEN</span>
+            <span class="rb-hero-tag">Transaction Monitoring</span>
+            <span class="rb-hero-tag">KYC Diaspora</span>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+elif menu == "📋 Démarche d'Audit & Référentiel":
+    st.markdown("""
+    <div class="rb-hero">
+        <div class="rb-hero-label">Module 4 — Audit</div>
+        <div class="rb-hero-title">Démarche d'Audit &amp; Référentiel Réglementaire</div>
+        <div class="rb-hero-desc">
+            Méthodologie d'audit en 5 phases séquentielles · Accès aux 4 référentiels mondiaux complets ·
+            GAFI, OFAC, TRACFIN/DGT, Bâle II/III — téléchargeables en CSV.
+        </div>
+        <div class="rb-hero-tags">
+            <span class="rb-hero-tag">GAFI 40 Rec.</span>
+            <span class="rb-hero-tag">OFAC</span>
+            <span class="rb-hero-tag">TRACFIN / DGT</span>
+            <span class="rb-hero-tag">Bâle III</span>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+elif menu == "📅 Cabinet — RDV & Échanges":
+    st.markdown("""
+    <div class="rb-hero">
+        <div class="rb-hero-label">Cabinet — Contact</div>
+        <div class="rb-hero-title">Prise de Rendez-Vous &amp; Échanges</div>
+        <div class="rb-hero-desc">
+            Réservez une prestation de conseil RegBridge · Soumettez vos documents de contrôle interne
+            en toute confidentialité · Redirection vers le tunnel de paiement Stripe.
+        </div>
+        <div class="rb-hero-tags">
+            <span class="rb-hero-tag">Audit Environnement</span>
+            <span class="rb-hero-tag">KYC Remédiation</span>
+            <span class="rb-hero-tag">Formation MLRO</span>
+            <span class="rb-hero-tag">Abonnement SaaS</span>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
 
 
 # ═══════════════════════════════════════════════════════════
 # ONGLET 1 : VISION ENVIRONNEMENT PAYS
 # ═══════════════════════════════════════════════════════════
 if menu == "🏛️ Vision Environnement Pays":
-    st.markdown("""
-    <div class="page-title">
-        <h2>Vision Environnement Pays</h2>
-        <p>Sélectionnez une juridiction pour obtenir sa fiche complète de risque réglementaire (GAFI · OFAC · De-risking)</p>
-    </div>
-    """, unsafe_allow_html=True)
+    # ── Cartes de valeur (style compliance-service) ──
+    c1, c2, c3 = st.columns(3)
+    with c1:
+        st.markdown("""
+        <div class="icon-card">
+            <div class="ic-icon">🛡️</div>
+            <div class="ic-title">Statut GAFI & Listes Grises</div>
+            <div class="ic-text">Évaluation du positionnement de chaque juridiction sur les listes du GAFI (liste grise, noire, ou conforme) avec plan d'action de sortie.</div>
+        </div>
+        """, unsafe_allow_html=True)
+    with c2:
+        st.markdown("""
+        <div class="icon-card">
+            <div class="ic-icon">⚖️</div>
+            <div class="ic-title">Exposition OFAC & Sanctions</div>
+            <div class="ic-text">Identification des programmes de sanctions américains applicables, des désignations SDN actives et du niveau de risque de contrepartie pour les banques correspondantes.</div>
+        </div>
+        """, unsafe_allow_html=True)
+    with c3:
+        st.markdown("""
+        <div class="icon-card">
+            <div class="ic-icon">📊</div>
+            <div class="ic-title">Indice de De-Risking</div>
+            <div class="ic-text">Mesure de la pression exercée sur les relations de correspondance bancaire, score de corruption Transparency International et recommandations de remédiation.</div>
+        </div>
+        """, unsafe_allow_html=True)
+
+    st.markdown("<div style='height:1.5rem'></div>", unsafe_allow_html=True)
 
     col_r, col_p = st.columns([1, 2])
     with col_r:
@@ -628,9 +848,8 @@ if menu == "🏛️ Vision Environnement Pays":
 # ═══════════════════════════════════════════════════════════
 elif menu == "🔍 Moteur de Screening":
     st.markdown("""
-    <div class="page-title">
-        <h2>Moteur de Screening PEP / Sanctions</h2>
-        <p>Criblage instantané contre les listes OFAC SDN · DGT Gel des Avoirs · OpenSanctions · Interpol</p>
+    <div style='background:#fff8f0; border-left:4px solid var(--gold,#b8975a); padding:0.7rem 1.2rem; margin-bottom:1.2rem; font-size:0.82rem; color:#1c2b4a;'>
+        🔌 <b>API Ready :</b> Ce module est conçu pour se connecter à <b>OpenSanctions API</b>, <b>OFAC API</b> et <b>DGT Gel des Avoirs</b> en remplacement du CSV local.
     </div>
     """, unsafe_allow_html=True)
 
@@ -744,13 +963,6 @@ elif menu == "🔍 Moteur de Screening":
 # ONGLET 3 : DIASPORA & TRANSFERTS
 # ═══════════════════════════════════════════════════════════
 elif menu == "💸 Diaspora & Transferts":
-    st.markdown("""
-    <div class="page-title">
-        <h2>Diaspora &amp; Maisons de Transfert d'Argent</h2>
-        <p>Cartographie des risques par corridor · Mesures compensatoires · Transaction Monitoring</p>
-    </div>
-    """, unsafe_allow_html=True)
-
     if df_corridors.empty:
         st.error("Données corridors non disponibles.")
     else:
@@ -854,13 +1066,6 @@ elif menu == "💸 Diaspora & Transferts":
 # ONGLET 4 : DÉMARCHE D'AUDIT & RÉFÉRENTIEL
 # ═══════════════════════════════════════════════════════════
 elif menu == "📋 Démarche d'Audit & Référentiel":
-    st.markdown("""
-    <div class="page-title">
-        <h2>Démarche d'Audit &amp; Référentiel Réglementaire</h2>
-        <p>Méthodologie en 5 phases · Référentiels GAFI · OFAC · TRACFIN/DGT · Bâle II/III</p>
-    </div>
-    """, unsafe_allow_html=True)
-
     tab1, tab2, tab3, tab4, tab5 = st.tabs([
         "🔵 Démarche Audit", "📘 GAFI (40 Rec.)", "🔴 OFAC Sanctions", "🇫🇷 TRACFIN / DGT", "🏦 Bâle II/III"
     ])
@@ -975,13 +1180,6 @@ elif menu == "📋 Démarche d'Audit & Référentiel":
 # ONGLET 5 : CABINET — RDV & ÉCHANGES
 # ═══════════════════════════════════════════════════════════
 elif menu == "📅 Cabinet — RDV & Échanges":
-    st.markdown("""
-    <div class="page-title">
-        <h2>Cabinet — Prise de Rendez-Vous &amp; Échanges</h2>
-        <p>Réservez une prestation de conseil · Soumettez vos documents en toute confidentialité</p>
-    </div>
-    """, unsafe_allow_html=True)
-
     col_a, col_b = st.columns([3, 2])
 
     with col_a:
